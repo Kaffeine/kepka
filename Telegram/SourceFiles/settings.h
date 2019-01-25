@@ -32,6 +32,7 @@ void InitFromCommandLine(int argc, char *argv[]);
 
 extern bool gDebug;
 inline bool cDebug() {
+    return true;
 #if defined _DEBUG
 	return true;
 #else
