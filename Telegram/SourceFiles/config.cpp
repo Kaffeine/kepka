@@ -27,31 +27,27 @@ const char **cPublicRSAKeys(size_t &keysCount) {
 
 static const char *(keys[]) = {"\
 -----BEGIN RSA PUBLIC KEY-----\n\
-MIIBCgKCAQEAwVACPi9w23mF3tBkdZz+zwrzKOaaQdr01vAbU4E1pvkfj4sqDsm6\n\
-lyDONS789sVoD/xCS9Y0hkkC3gtL1tSfTlgCMOOul9lcixlEKzwKENj1Yz/s7daS\n\
-an9tqw3bfUV/nqgbhGX81v/+7RFAEd+RwFnK7a+XYl9sluzHRyVVaTTveB2GazTw\n\
-Efzk2DWgkBluml8OREmvfraX3bkHZJTKX4EQSjBbbdJ2ZXIsRrYOXfaA+xayEGB+\n\
-8hdlLmAjbCVfaigxX0CDqWeR1yFL9kwd9P0NsZRPsmoqVwMbMu7mStFai6aIhc3n\n\
-Slv8kg9qv1m6XHVQY3PnEw+QQtqSIXklHwIDAQAB\n\
+MIIBCgKCAQEAvx6OqhZqaB5xuSJqe32JRq/uN9j85FbtVsywXcea76eF0HnBZ04p\n\
+IBHSncrNp1ad/MAZ70Sp0zk3tDSbGQQqUI3pQRyEq9OuPdBBWnpqhbkkFkYzXhnq\n\
+UCZ0BuxdDNd88dWRZBE0IZxRXjE3QXaLcbnbns8aAwuYlQvBcWScghQWdoZXkseY\n\
+hcs9AToTU5gVSptIlVnwnPp+TbYu3bzfas2vs9BZ2MSampHfGOkslN61ObxraSe2\n\
+ui/AaRxpAIbK/2vvBquaJxVgzj6QPjOjZtPYJ+MGmXuo6/7TeGZPOhTu7Vt1g7RR\n\
+BUTggR65bFKkmqKmgyNNDKo4wF6bY2rJuQIDAQAB\n\
 -----END RSA PUBLIC KEY-----"};
             keysCount = base::array_size(keys);
             return keys;
 }
 
 static const BuiltInDc _builtInDcs[] = {
-    { 1, "149.154.175.50", 443 },
-    { 2, "149.154.167.51", 443 },
-    { 3, "149.154.175.100", 443 },
-    { 4, "149.154.167.91", 443 },
-    { 5, "149.154.171.5", 443 }
+    { 1, "127.0.0.1", 11441 },
+    { 2, "127.0.0.2", 11442 },
+    { 3, "127.0.0.3", 11443 }
 };
 
 static const BuiltInDc _builtInDcsIPv6[] = {
-        { 1, "2001:b28:f23d:f001::a", 443 },
-        { 2, "2001:67c:4e8:f002::a", 443 },
-        { 3, "2001:b28:f23d:f003::a", 443 },
-        { 4, "2001:67c:4e8:f004::a", 443 },
-        { 5, "2001:b28:f23f:f005::a", 443 }
+    { 1, "20zzz:b28:f23d:f001::a", 443 },
+    { 2, "20zzz:67c:4e8:f002::a", 443 },
+    { 3, "20zzz:b28:f23d:f003::a", 443 },
 };
 
 static const BuiltInDc _builtInTestDcs[] = {
