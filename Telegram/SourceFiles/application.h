@@ -20,6 +20,8 @@
 // Copyright (c) 2014-2017 John Preston, https://desktop.telegram.org
 // Copyright (c) 2017- Kepka Contributors, https://github.com/procxx
 //
+#ifndef H_KEPKA_APPLICATION
+#define H_KEPKA_APPLICATION
 #pragma once
 
 #include <memory>
@@ -91,3 +93,5 @@ void connect(const char *signal, QObject *object, const char *method);
 void launch();
 
 } // namespace Sandbox
+
+#endif

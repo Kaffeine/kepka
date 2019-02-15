@@ -26,12 +26,14 @@
 #include "mainwidget.h"
 #include "mainwindow.h"
 #include "messenger.h"
+#include "settings.h"
 #include "platform/platform_specific.h"
 #include "storage/localstorage.h"
 #include "window/notifications_manager.h"
 
 #include <QDesktopWidget>
 #include <QScreen>
+#include <QFile>
 
 namespace {
 
