@@ -41,6 +41,7 @@ bool gDebug = false;
 bool gManyInstance = false;
 QString gKeyFile;
 QString gWorkingDir, gExeDir, gExeName;
+QString gPublicKeyFile;
 
 QStringList gSendPaths;
 QString gStartUrl;
@@ -143,6 +144,7 @@ void ParseCommandLineArguments(const QStringList &arguments) {
 	    {"-startintray", KeyFormat::NoValues},
 	    {"-sendpath", KeyFormat::AllLeftValues},
 	    {"-workdir", KeyFormat::OneValue},
+        {"-publickey", KeyFormat::OneValue},
 	    {"--", KeyFormat::OneValue},
 	};
 	auto parseResult = QMap<QByteArray, QStringList>();
@@ -185,6 +187,7 @@ void ParseCommandLineArguments(const QStringList &arguments) {
 	if (!gWorkingDir.isEmpty() && !QDir().exists(gWorkingDir)) {
 		gWorkingDir = QString();
 	}
+    gPublicKeyFile = parseResult.value("-publickey").join(QString());
 	gStartUrl = parseResult.value("--", QStringList()).join(QString());
 }
 

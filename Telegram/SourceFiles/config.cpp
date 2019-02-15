@@ -22,20 +22,52 @@
 
 #include "config.h"
 #include "core/utils.h"
+#include "settings.h"
+#include <QFile>
+#include <QByteArray>
 
 const char **cPublicRSAKeys(size_t &keysCount) {
-
-static const char *(keys[]) = {"\
+    static const char *(keys[]) =
+    {"\
 -----BEGIN RSA PUBLIC KEY-----\n\
-MIIBCgKCAQEAvx6OqhZqaB5xuSJqe32JRq/uN9j85FbtVsywXcea76eF0HnBZ04p\n\
-IBHSncrNp1ad/MAZ70Sp0zk3tDSbGQQqUI3pQRyEq9OuPdBBWnpqhbkkFkYzXhnq\n\
-UCZ0BuxdDNd88dWRZBE0IZxRXjE3QXaLcbnbns8aAwuYlQvBcWScghQWdoZXkseY\n\
-hcs9AToTU5gVSptIlVnwnPp+TbYu3bzfas2vs9BZ2MSampHfGOkslN61ObxraSe2\n\
-ui/AaRxpAIbK/2vvBquaJxVgzj6QPjOjZtPYJ+MGmXuo6/7TeGZPOhTu7Vt1g7RR\n\
-BUTggR65bFKkmqKmgyNNDKo4wF6bY2rJuQIDAQAB\n\
------END RSA PUBLIC KEY-----"};
+MIIBCgKCAQEAzsJWl6Fzd60FwebE3wFxplqdgByWIk6Kh/8iFCDegB80fRSOhWNX\n\
+h1KfUpO1USdVK0g8lGTZcmx9AUIXTgN3sjbRB3vk5dvWvZy4T7MjlAfmLhcumzOC\n\
+VNkq6RQ8vO1vjK8kZ64drOtXegLmXbn1UkT7EBmJdNA1wV0JFGc1apVieV0aDnMq\n\
+H0YP9vhin+AkoZtr5giKbG6wxKGTBp5geRqUMi3/oVK5pDD/hMEdaaVJEWlbgJSH\n\
+dB2RgzofPg05G3kxZhmb6PBo3xZpzC5oVjkigj2ZoVbkL5H/SmQTj1yPnxuZM4Yl\n\
+mA+y1v3FKavvPw6Ru0WC8SBpM4OeInUE0wIDAQAB\n\
+-----END RSA PUBLIC KEY-----"
+    };
+
+    const QString pubKeyFile = cPublicKeyFile();
+    if (pubKeyFile.isEmpty()) {
+        // use hard-coded private key
+        keysCount = base::array_size(keys);
+        return keys;
+    }
+
+    static QByteArray baKey;
+    static const char *dynamicKeys[1] = { nullptr };
+
+    // read key from file once
+    if (baKey.isEmpty()) {
+        QFile fkey(pubKeyFile);
+        if (!fkey.open(QIODevice::ReadOnly)) {
+            // return hard-coded
+            LOG(("Failed to open key file: %1").arg(pubKeyFile));
             keysCount = base::array_size(keys);
             return keys;
+        }
+        baKey = fkey.readAll();
+        fkey.close();
+        dynamicKeys[0] = baKey.constData();
+
+        DEBUG_LOG(("Successfully loaded private key from: %1").arg(pubKeyFile));
+    }
+
+
+    keysCount = 1;
+    return dynamicKeys;
 }
 
 static const BuiltInDc _builtInDcs[] = {

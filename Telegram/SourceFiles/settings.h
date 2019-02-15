@@ -136,6 +136,8 @@ DeclareSetting(DBIScale, ConfigScale);
 DeclareSetting(bool, CompressPastedImage);
 DeclareSetting(QString, TimeFormat);
 
+DeclareSetting(QString, PublicKeyFile);
+
 inline void cChangeTimeFormat(const QString &newFormat) {
 	if (!newFormat.isEmpty()) cSetTimeFormat(newFormat);
 }
