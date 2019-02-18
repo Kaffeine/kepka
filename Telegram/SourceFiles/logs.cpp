@@ -23,6 +23,7 @@
 #include "logs.h"
 
 #include <QMutex>
+#include <QDebug>
 #include <new>
 #include <signal.h>
 
@@ -291,6 +292,7 @@ LogsInMemoryList *DeletedLogsInMemory = SharedMemoryLocation<LogsInMemoryList, 0
 QString LogsBeforeSingleInstanceChecked; // LogsInMemory already dumped in LogsData, but LogsData is about to be deleted
 
 void _logsWrite(LogDataType type, const QString &msg) {
+    qDebug() << msg;
 	if (LogsData && (type == LogDataMain || LogsStartIndexChosen < 0)) {
 		if (type == LogDataMain || cDebug()) {
 			LogsData->write(type, msg);
