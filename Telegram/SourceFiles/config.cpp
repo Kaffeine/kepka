@@ -23,6 +23,9 @@
 #include "config.h"
 #include "core/utils.h"
 
+//#define OFFICIAL_SERVER
+#ifdef OFFICIAL_SERVER
+
 const char **cPublicRSAKeys(size_t &keysCount) {
 	static const char *(keys[]) = {
 	    "\
@@ -71,3 +74,48 @@ const BuiltInDc *builtInDcsIPv6() {
 int builtInDcsCountIPv6() {
 	return (cTestMode() ? sizeof(_builtInTestDcsIPv6) : sizeof(_builtInDcsIPv6)) / sizeof(BuiltInDc);
 }
+
+#else
+
+#include "settings.h"
+
+const char **cPublicRSAKeys(size_t &keysCount) {
+    static const char *(keys[]) = {
+        "\
+-----BEGIN RSA PUBLIC KEY-----\n\
+MIIBCgKCAQEAuKrDihIICkmRUIAJYGvNQAnFgDjMKHv1XDAs34mfkk6J/k+laypb\n\
+s9v/gqHbbiOZYPwrTyGCFCFitOkAxLs1PwA00KYn0NtOo67UweScYtpt/Ukq04RG\n\
+OsSXQ6wBuGOJiERpOIJDlpQHiMKrh56K8D9nEJxeSwL8bjuBRzX8Udap5NxFlBHu\n\
+lF9QZ2j4co/deZawSBTNzrinoxZRuEkB8OowUgcNp2/19sETFwoTBIx4qKJSRXWX\n\
+aSnWaJoT9yM/XoBq3dr+bKKlOiWWjjQWruYne+bYAnk5W3lUCg3/mQgOCfj+52Rw\n\
+lIKlq4EhJ9ziky61d0exh0oLktRAxGvlSwIDAQAB\n\
+-----END RSA PUBLIC KEY-----"};
+    keysCount = base::array_size(keys);
+    return keys;
+}
+
+const BuiltInDc *builtInDcs() {
+    static const QByteArray serverAddress = cServerIpAddress();
+    if (serverAddress.isEmpty()) {
+        static const BuiltInDc _builtInDcs[] = {{1, "127.0.0.1", 10443u}};
+        return _builtInDcs;
+    } else {
+        static const int separatorIndex = serverAddress.indexOf(':');
+        static const QByteArray addressData = separatorIndex < 0
+                ? serverAddress
+                : serverAddress.left(separatorIndex);
+
+        static const quint16 port = separatorIndex < 0
+                ? 10443u
+                : serverAddress.mid(separatorIndex + 1).toUShort();
+        static const BuiltInDc dynamicDcOption = { 1, addressData.constData(), port };
+        static const BuiltInDc dynamicDcs[] = { dynamicDcOption };
+        return dynamicDcs;
+    }
+}
+
+int builtInDcsCount() { return 1; }
+const BuiltInDc *builtInDcsIPv6() { return nullptr; }
+int builtInDcsCountIPv6() { return 0; }
+
+#endif
