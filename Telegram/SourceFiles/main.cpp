@@ -49,6 +49,7 @@ int main(int argc, char *argv[]) {
 	int result = 0;
 	{
 		Application app(argc, argv);
+		cSetDebug(true);
 		result = app.exec();
 	}
 
