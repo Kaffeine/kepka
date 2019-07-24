@@ -35,6 +35,7 @@ bool gAlphaVersion = AppAlphaVersion;
 quint64 gBetaVersion = AppBetaVersion;
 quint64 gRealBetaVersion = AppBetaVersion;
 QByteArray gBetaPrivateKey;
+QByteArray gServerIpAddress;
 
 bool gTestMode = false;
 bool gDebug = false;
@@ -131,6 +132,7 @@ void ParseCommandLineArguments(const QStringList &arguments) {
 		AllLeftValues,
 	};
 	auto parseMap = std::map<QByteArray, KeyFormat>{
+	    {"-address", KeyFormat::OneValue},
 	    {"-testmode", KeyFormat::NoValues},
 	    {"-debug", KeyFormat::NoValues},
 	    {"-many", KeyFormat::NoValues},
@@ -168,6 +170,7 @@ void ParseCommandLineArguments(const QStringList &arguments) {
 		}
 	}
 
+	gServerIpAddress = parseResult.value("-address").join(QString()).toLatin1();
 	gTestMode = parseResult.contains("-testmode");
 	gDebug = parseResult.contains("-debug");
 	gManyInstance = parseResult.contains("-many");

@@ -70,6 +70,7 @@ DeclareSetting(bool, AlphaVersion);
 DeclareSetting(quint64, BetaVersion);
 DeclareSetting(quint64, RealBetaVersion);
 DeclareSetting(QByteArray, BetaPrivateKey);
+DeclareSetting(QByteArray, ServerIpAddress);
 
 DeclareSetting(bool, TestMode);
 DeclareSetting(QString, LoggedPhoneNumber);
