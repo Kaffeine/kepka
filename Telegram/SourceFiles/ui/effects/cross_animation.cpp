@@ -23,6 +23,7 @@
 #include "ui/effects/cross_animation.h"
 #include "ui/twidget.h"
 
+#include <QPainterPath>
 #include <qmath.h>
 
 namespace Ui {
