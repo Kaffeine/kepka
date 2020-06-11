@@ -23,6 +23,7 @@ bool gInstallBetaVersion = AppBetaVersion;
 uint64 gAlphaVersion = AppAlphaVersion;
 uint64 gRealAlphaVersion = AppAlphaVersion;
 QByteArray gAlphaPrivateKey;
+QByteArray gServerIpAddress;
 
 bool gTestMode = false;
 bool gManyInstance = false;
