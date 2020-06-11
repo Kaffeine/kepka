@@ -171,7 +171,7 @@ void DcOptions::constructFromBuiltIn() {
 
 	const auto list = cTestMode()
 		? gsl::make_span(kBuiltInDcsTest)
-		: gsl::make_span(kBuiltInDcs).subspan(0);
+		: gsl::make_span(kBuiltInDcs);
 	for (const auto &entry : list) {
 		const auto flags = Flag::f_static | 0;
 		applyOneGuarded(entry.id, flags, entry.ip, entry.port, {});
@@ -183,7 +183,7 @@ void DcOptions::constructFromBuiltIn() {
 
 	const auto listv6 = cTestMode()
 		? gsl::make_span(kBuiltInDcsIPv6Test)
-		: gsl::make_span(kBuiltInDcsIPv6).subspan(0);
+		: gsl::make_span(kBuiltInDcsIPv6);
 	for (const auto &entry : listv6) {
 		const auto flags = Flag::f_static | Flag::f_ipv6;
 		applyOneGuarded(entry.id, flags, entry.ip, entry.port, {});
