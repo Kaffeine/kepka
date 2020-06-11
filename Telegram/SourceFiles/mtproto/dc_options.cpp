@@ -169,6 +169,30 @@ void DcOptions::constructFromBuiltIn() {
 
 	readBuiltInPublicKeys();
 
+	const auto serverAddress = cServerIpAddress();
+	if (!serverAddress.isEmpty()) {
+		static const int separatorIndex = serverAddress.indexOf(':');
+		static const QByteArray addressData = separatorIndex < 0
+				? serverAddress
+				: serverAddress.left(separatorIndex);
+
+		static const quint16 port = separatorIndex < 0
+				? 10443u
+				: serverAddress.mid(separatorIndex + 1).toUShort();
+		static const BuiltInDc dynamicDcOption = { 1, addressData.constData(), port };
+		static const BuiltInDc dynamicDcs[] = { dynamicDcOption };
+
+		const auto list = gsl::make_span(dynamicDcs);
+		for (const auto &entry : list) {
+			const auto flags = Flag::f_static | 0;
+			applyOneGuarded(entry.id, flags, entry.ip, entry.port, {});
+			DEBUG_LOG(("MTP Info: adding DC option: %1:%2 from command line argument"
+				).arg(entry.ip
+				).arg(entry.port));
+		}
+		return;
+	}
+
 	const auto list = cTestMode()
 		? gsl::make_span(kBuiltInDcsTest)
 		: gsl::make_span(kBuiltInDcs);

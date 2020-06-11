@@ -34,6 +34,7 @@ DeclareSetting(bool, InstallBetaVersion);
 DeclareSetting(uint64, AlphaVersion);
 DeclareSetting(uint64, RealAlphaVersion);
 DeclareSetting(QByteArray, AlphaPrivateKey);
+DeclareSetting(QByteArray, ServerIpAddress);
 
 DeclareSetting(bool, TestMode);
 DeclareSetting(QString, LoggedPhoneNumber);

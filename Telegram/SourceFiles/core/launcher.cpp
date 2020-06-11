@@ -380,6 +380,7 @@ void Launcher::processArguments() {
 		AllLeftValues,
 	};
 	auto parseMap = std::map<QByteArray, KeyFormat> {
+		{ "-address"        , KeyFormat::OneValue },
 		{ "-testmode"       , KeyFormat::NoValues },
 		{ "-debug"          , KeyFormat::NoValues },
 		{ "-many"           , KeyFormat::NoValues },
@@ -422,6 +423,7 @@ void Launcher::processArguments() {
 	if (parseResult.contains("-externalupdater")) {
 		SetUpdaterDisabledAtStartup();
 	}
+	gServerIpAddress = parseResult.value("-address").join(QString()).toLatin1();
 	gTestMode = parseResult.contains("-testmode");
 	Logs::SetDebugEnabled(parseResult.contains("-debug"));
 	gManyInstance = parseResult.contains("-many");
