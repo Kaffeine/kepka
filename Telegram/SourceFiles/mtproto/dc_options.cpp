@@ -23,6 +23,7 @@ struct BuiltInDc {
 	int port;
 };
 
+#ifdef OFFICIAL_SERVER
 const BuiltInDc kBuiltInDcs[] = {
 	{ 1, "149.154.175.50" , 443 },
 	{ 2, "149.154.167.51" , 443 },
@@ -97,6 +98,33 @@ xW3pT13Ap6vuC+mQuJPyiHvSxjEKHgqePji9NP3tJUFQjcECqcm0yV7/2d0t/pbC\n\
 m+ZH1sadZspQCEPPrtbkQBlvHb4OLiIWPGHKSMeRFvp3IWcmdJqXahxLCUS1Eh6M\n\
 AQIDAQAB\n\
 -----END PUBLIC KEY-----" };
+#else
+const BuiltInDc kBuiltInDcs[] = {
+	{ 1, "127.0.0.1", 10443 },
+};
+
+const BuiltInDc kBuiltInDcsIPv6[] = {
+	{ 1, "::1", 10443 },
+};
+
+const BuiltInDc kBuiltInDcsTest[] = {
+	{ 1, "127.0.0.1", 10443 },
+};
+
+const BuiltInDc kBuiltInDcsIPv6Test[] = {
+	{ 1, "::1", 10443 },
+};
+
+const char *(kPublicRSAKeys[]) = { "\
+-----BEGIN RSA PUBLIC KEY-----\n\
+MIIBCgKCAQEAuKrDihIICkmRUIAJYGvNQAnFgDjMKHv1XDAs34mfkk6J/k+laypb\n\
+s9v/gqHbbiOZYPwrTyGCFCFitOkAxLs1PwA00KYn0NtOo67UweScYtpt/Ukq04RG\n\
+OsSXQ6wBuGOJiERpOIJDlpQHiMKrh56K8D9nEJxeSwL8bjuBRzX8Udap5NxFlBHu\n\
+lF9QZ2j4co/deZawSBTNzrinoxZRuEkB8OowUgcNp2/19sETFwoTBIx4qKJSRXWX\n\
+aSnWaJoT9yM/XoBq3dr+bKKlOiWWjjQWruYne+bYAnk5W3lUCg3/mQgOCfj+52Rw\n\
+lIKlq4EhJ9ziky61d0exh0oLktRAxGvlSwIDAQAB\n\
+-----END RSA PUBLIC KEY-----"};
+#endif // OFFICIAL_SERVER
 
 } // namespace
 
