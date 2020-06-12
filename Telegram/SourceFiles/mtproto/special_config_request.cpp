@@ -194,7 +194,6 @@ SpecialConfigRequest::SpecialConfigRequest(
 , _timeDoneCallback(std::move(timeDoneCallback))
 , _phone(phone) {
 	Expects((_callback == nullptr) != (_timeDoneCallback == nullptr));
-	return;
 
 	_manager.setProxy(QNetworkProxy::NoProxy);
 

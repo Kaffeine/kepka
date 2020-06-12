@@ -154,7 +154,7 @@ void ConfigLoader::addSpecialEndpoint(
 		return;
 	}
 	DEBUG_LOG(("MTP Info: Special endpoint received, '%1:%2'").arg(ip.c_str()).arg(port));
-	_specialEndpoints.push_back(endpoint);
+    // _specialEndpoints.push_back(endpoint);
 
 	if (!_specialEnumTimer.isActive()) {
 		_specialEnumTimer.callOnce(1);
@@ -202,6 +202,7 @@ void ConfigLoader::sendSpecialRequest() {
 }
 
 void ConfigLoader::specialConfigLoaded(const MTPConfig &result) {
+    return;
 	Expects(result.type() == mtpc_config);
 
 	const auto &data = result.c_config();
