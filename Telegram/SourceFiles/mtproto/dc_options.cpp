@@ -183,6 +183,9 @@ void DcOptions::readBuiltInPublicKeys() {
 		const auto keyBytes = bytes::make_span(key, strlen(key));
 		auto parsed = RSAPublicKey(keyBytes);
 		if (parsed.valid()) {
+            LOG(("MTP: Add built-in public RSA key 0x%1"
+                 ).arg(parsed.fingerprint(), 0, 16
+                 ));
 			_publicKeys.emplace(parsed.fingerprint(), std::move(parsed));
 		} else {
 			LOG(("MTP Error: could not read this public RSA key:"));
@@ -694,6 +697,9 @@ RSAPublicKey DcOptions::getDcRSAKey(
 		const QVector<MTPlong> &fingerprints) const {
 	const auto findKey = [&](const std::map<uint64, RSAPublicKey> &keys) {
 		for (const auto &fingerprint : fingerprints) {
+            LOG(("Looking for key with fingerprint 0x%1")
+                 .arg(static_cast<uint64>(fingerprint.v), 0, 16)
+                 );
 			const auto it = keys.find(static_cast<uint64>(fingerprint.v));
 			if (it != keys.cend()) {
 				return it->second;
